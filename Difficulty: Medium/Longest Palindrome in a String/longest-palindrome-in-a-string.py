@@ -3,47 +3,16 @@ class Solution:
     def longestPalindrome(self, s):
         # code here
         n = len(s)
-        maxi, res = -1e9, ""
+        max_len = 0
+        res = ""
+        
         for i in range(n):
-            l, r = i, i
-            while(l >= 0 and r < n):
-                if s[l] == s[r]:
-                    if maxi < r - l + 1:
-                        maxi = r - l + 1
-                        res = s[l: r+1]
-                    l -= 1
-                    r += 1
-                else:
-                    break
-            l, r = i, i+1
-            while(l >= 0 and r < n):
-                if s[l] == s[r]:
-                    if maxi < r - l + 1:
-                        maxi = r - l + 1
-                        res = s[l: r+1]
-                    l -= 1
-                    r += 1
-                else:
-                    break
+            for j in range(n-1, i-1, -1):
+                if s[i] == s[j]:
+                    substr = s[i:j+1]
+                    if substr == substr[::-1]:  # Check palindrome
+                        if len(substr) > max_len:
+                            max_len = len(substr)
+                            res = substr
+                        break  # No need to check shorter substrings ending at j
         return res
-
-
-
-#{ 
- # Driver Code Starts
-#Initial Template for Python 3
-
-if __name__ == '__main__':
-
-    t = int(input())
-
-    for _ in range(t):
-        S = input()
-
-        ob = Solution()
-
-        ans = ob.longestPalindrome(S)
-
-        print(ans)
-        print("~")
-# } Driver Code Ends
