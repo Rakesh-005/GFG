@@ -5,7 +5,6 @@ class Solution:
         arr = []
         for row in mat:
             arr.extend(row)  # flatten the matrix
-        
         arr.sort()
         n = len(arr)
         if (n & 1) == 0:
