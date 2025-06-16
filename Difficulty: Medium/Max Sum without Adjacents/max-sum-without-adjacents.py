@@ -1,21 +1,17 @@
-#User function Template for python3
-def d(i,arr,dp):
-    if i==0:
-        return arr[i]
-    if i<0:
-        return 0
-    if dp[i]!=-1:
-        return dp[i]
-    take=arr[i]+d(i-2,arr,dp)
-    ntake=d(i-1,arr,dp)
-    dp[i]=max(take,ntake)
-    return dp[i]
-    
+# User function Template for python3
 class Solution:
-	
-	def findMaxSum(self,arr):
-		# code here
-		n=len(arr)
-		dp=[-1]*n
-		return d(n-1,arr,dp)
-		
+    def findMaxSum(self, arr):
+        n = len(arr)
+        if n == 0:
+            return 0
+        if n == 1:
+            return arr[0]
+        
+        dp = [0] * n
+        dp[0] = arr[0]
+        dp[1] = max(arr[0], arr[1])
+
+        for i in range(2, n):
+            dp[i] = max(arr[i] + dp[i-2], dp[i-1])
+        
+        return dp[n-1]
