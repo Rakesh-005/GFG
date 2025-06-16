@@ -1,56 +1,21 @@
 class Solution:
-    def maxValue(self, arr):
+    def maxValue(self, nums):
         # code here
-        def f(ind, dp, arr):
-            if ind >= len(arr):
+        def rob_line(arr):
+            n = len(arr)
+            if n == 0:
                 return 0
-            if ind in dp:
-                return dp[ind]
-            p1 = arr[ind] + f(ind + 2, dp, arr)
-            p2 = f(ind + 1, dp, arr)
-            dp[ind] = max(p1, p2)
-            return dp[ind]
+            if n == 1:
+                return arr[0]
+            dp = [0] * n
+            dp[0] = arr[0]
+            dp[1] = max(arr[0], arr[1])
+            for i in range(2, n):
+                dp[i] = max(arr[i] + dp[i-2], dp[i-1])
+            return dp[-1]
+        
+        n = len(nums)
+        if n == 1:
+            return nums[0]
+        return max(rob_line(nums[1:]), rob_line(nums[:-1]))
 
-        if not arr:
-            return 0
-
-        n = len(arr)
-        dp1, dp2 = {}, {}
-        v1, v2 = arr[:-1], arr[1:]
-
-        f1 = f(0, dp1, v1)
-        f2 = f(0, dp2, v2)
-
-        return max(f1, f2)
-
-
-
-#{ 
- # Driver Code Starts
-class IntArray:
-
-    def __init__(self) -> None:
-        pass
-
-    def Input(self):
-        arr = [int(i) for i in input().strip().split()]
-        return arr
-
-    def Print(self, arr):
-        for i in arr:
-            print(i, end=" ")
-        print()
-
-
-if __name__ == "__main__":
-    t = int(input())
-    for _ in range(t):
-        arr = IntArray().Input()
-
-        obj = Solution()
-        res = obj.maxValue(arr)
-
-        print(res)
-        print("~")
-
-# } Driver Code Ends
