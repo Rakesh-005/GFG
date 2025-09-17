@@ -3,7 +3,6 @@ class Solution:
     def decodedString(self, s):
         # code here
         n = len(s)
-        # stack = [3,'[', b, 2, '[', c, a]
         stack = []
         ans = ""
         for i in s:
@@ -22,17 +21,3 @@ class Solution:
                 ans = ""
         return "".join(stack)
 
-#{ 
- # Driver Code Starts
-#Initial Template for Python 3
-
-if __name__ == '__main__':
-    t = int(input())
-    for _ in range(t):
-        s = input()
-
-        ob = Solution()
-        print(ob.decodedString(s))
-        print("~")
-
-# } Driver Code Ends
